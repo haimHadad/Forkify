@@ -243,7 +243,7 @@ body {
     transform: translateY(-2px); }
   .results__link--active,
   .likes__link--active {
-    background-color: #F9F5F3; }
+    background-color: #ffd5d5; }
   .results__fig,
   .likes__fig {
     flex: 0 0 5.5rem;

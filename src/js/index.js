@@ -69,6 +69,13 @@ elements.searchResPages.addEventListener('click', e=>{
         //Prepare UI for changes
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
+
+        //Highlight selected search item
+        if(state.search){
+            searchView.highlightSelected(id);
+        }
+        
+
         //Create new Recipe object
         state.recipe = new Recipe(id);
         
@@ -82,6 +89,7 @@ elements.searchResPages.addEventListener('click', e=>{
             //Render recipe
             clearLoader();
             recipeView.renderRecipe(state.recipe);
+            
         }catch(error){
             alert('Error processing with recipe !!');
         }
