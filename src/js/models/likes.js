@@ -6,10 +6,8 @@ export default class Likes{
 
     addLikes(id, title, author, img){
         const like = {id, title, author, img};
-        if( this.isLiked(id)){
-            this.likes.push(like);
-            return like;
-        }
+        this.likes.push(like);
+         return like;  
     }
 
     deleteItem(id){
