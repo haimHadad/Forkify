@@ -4,6 +4,7 @@ import List from './models/List';
 import Likes from './models/likes';
 import * as searchView from './views/searchView'
 import * as recipeView from './views/recipeView'
+import * as likesView from './views/likesView'
 import * as listView from './views/listView'
 import {elements,renderLoader,clearLoader} from './views/base'
 
@@ -92,7 +93,18 @@ elements.searchResPages.addEventListener('click', e=>{
             state.recipe.calcServings();
             //Render recipe
             clearLoader();
-            recipeView.renderRecipe(state.recipe);
+            let liked = false;
+            if(state.likes){
+                if(state.likes.isLiked(id)){
+                    liked = true;
+                }
+            }
+
+            recipeView.renderRecipe(
+                state.recipe,
+                liked
+            );
+            
             
         }catch(error){
             alert('Error processing with recipe !!');
@@ -160,11 +172,12 @@ const controlLike = () =>{
      if(!state.likes.isLiked(currentID)){
          //Add like to the state
         const newLike = state.likes.addLikes(currentID, state.recipe.title, state.recipe.author, state.recipe.img);
-
+        
         //Toggle the like button
-
+        likesView.toggleLikeBtn(true);
         //Add like to likeslist in UI
         console.log(state.likes)
+        likesView.renderLike(newLike);
 
      }else{ //User already has liked curret recipe
 
@@ -172,11 +185,13 @@ const controlLike = () =>{
         state.likes.deleteItem(currentID);
 
         //Toggle the like button
+        likesView.toggleLikeBtn(false);
 
         //Remove like to likeslist in UI
         console.log(state.likes)
-
+        likesView.deleteLike(currentID);
      }
+     likesView.toggleLikeMenu(state.likes.getNumLikes());
 }
 
 
